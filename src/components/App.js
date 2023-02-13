@@ -6,12 +6,10 @@ import { Filter } from './Filter/Filter';
 
 export class App extends React.Component {
   handleContact = (name, number) => {
-    let isNameUnique = true;
+    let isNameUnique = false;
     const { contacts } = this.state;
-    contacts.find(elem => {
-      if (elem.name === name) isNameUnique = false;
-    });
-    if (isNameUnique) {
+    contacts.some(elem => elem.name === name);
+    if (!isNameUnique) {
       this.setState(state => ({
         contacts: [
           ...state.contacts,
