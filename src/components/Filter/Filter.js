@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import css from './Filter.module.css';
 
 export class Filter extends React.Component {
   handleChange = evt => {
@@ -10,8 +11,8 @@ export class Filter extends React.Component {
 
   render() {
     return (
-      <>
-        <h2> Find contacts by name</h2>
+      <div className={css.div}>
+        <p className={css.p}> Find contacts by name</p>
         <input
           onChange={this.handleChange}
           type="text"
@@ -19,7 +20,7 @@ export class Filter extends React.Component {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         />
-      </>
+      </div>
     );
   }
 }

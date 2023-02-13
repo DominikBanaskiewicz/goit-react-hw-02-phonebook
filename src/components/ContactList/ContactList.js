@@ -1,23 +1,21 @@
 import PropTypes from 'prop-types';
+import css from './ContactList.module.css';
 import React from 'react';
-export class ContactList extends React.Component {
-  state = {
-    contacts: this.props.contacts,
-  };
 
-  remove = event => {
-    event.preventDefault();
-    this.props.remove(event.target.parentElement.firstChild.textContent);
-  };
+export class ContactList extends React.Component {
   render() {
+    const { contacts, onRemoveContact } = this.props;
     return (
       <ul>
-        <h2>Contacts</h2>
-        {this.state.contacts.map(elem => (
-          <li key={elem.id}>
-            <p>{elem.name}</p>
-            <p>{elem.number}</p>
-            <button type="Button" onClick={this.remove}>
+        {contacts.map(elem => (
+          <li className={css.list__elem} key={elem.id}>
+            <span className={css.name}>{elem.name}</span>
+            <span className={css.number}>{elem.number}</span>
+            <button
+              className={css.button}
+              type="Button"
+              onClick={() => onRemoveContact(elem.id)}
+            >
               Delete
             </button>
           </li>
@@ -26,29 +24,27 @@ export class ContactList extends React.Component {
     );
   }
 }
-
 ContactList.propTypes = {
-  contacts: PropTypes.array,
-  remove: PropTypes.func,
+  contacts: PropTypes.array.isRequired,
+  onRemoveContact: PropTypes.func.isRequired,
 };
 
-// jesli mamy komponent funkcyjny to elementy się re-renderują
+// niżej działający komponent funkcyjny
 
-// import PropTypes from 'prop-types';
 // import React from 'react';
-// export const ContactList = contacts => {
-//   const remove = event => {
-//     console.log(event.target.parentElement.firstChild.textContent);
-//   };
+// export const ContactList = ({ contacts, onRemoveContact }) => {
 //   return (
 //     <>
 //       <ul>
-//         <h2>Contacts</h2>
-//         {contacts.contacts.map(elem => (
-//           <li key={elem.id}>
-//             <p>{elem.name}</p>
-//             <p>{elem.number}</p>
-//             <button type="Button" onClick={remove}>
+//         {contacts.map(elem => (
+//           <li className={css.list__elem} key={elem.id}>
+//             <span className={css.name}>{elem.name}</span>
+//             <span className={css.number}>{elem.number}</span>
+//             <button
+//               className={css.button}
+//               type="Button"
+//               onClick={() => onRemoveContact(elem.id)}
+//             >
 //               Delete
 //             </button>
 //           </li>
@@ -60,5 +56,5 @@ ContactList.propTypes = {
 
 // ContactList.propTypes = {
 //   contacts: PropTypes.array,
-//   remove: PropTypes.func,
+//   removeContact: PropTypes.func,
 // };
